@@ -15,20 +15,14 @@ struct ShoppinglistView: View {
     @State var addShopName = ""
     @State var addShopAmount = ""
     
-    @State var shoplistIds = [String]()
-    @State var shoplistNames = [String]()
-    @State var shoplistAmount = [Int]()
-
+    @State var allShopping = [Shopitem]()
+    
     var body: some View {
         
         NavigationView {
             VStack {
                 
-                Button(action: {
-                    try! Auth.auth().signOut()
-                }, label: {
-                    Text("Logga ut")
-                })
+                
                 
                 HStack {
                     TextField("Vad handla", text: $addShopName)
@@ -41,22 +35,47 @@ struct ShoppinglistView: View {
                     })
                 }
                 
-                List {
-                    ForEach(Array(shoplistIds.enumerated()), id: \.element) { index, rowfruit in
-                        
-                        HStack {
-                            Text(shoplistNames[index])
-                            Text(String(shoplistAmount[index]))
-                        }
+                List(allShopping, id: \.shopid) { shopthing in
+                    
+                    NavigationLink(destination: ShopdetailView(currentshop: shopthing)) {
+                            ShopRowView(rowshop: shopthing)
                     }
+                    
                 }
-            }.onAppear() {
+                
+            }
+            .navigationTitle("Shopping")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar() {
+                Button(action: {
+                    try! Auth.auth().signOut()
+                }, label: {
+                    Text("Logga ut")
+                })
+            }
+            .onAppear() {
                 loadshopping()
             }
         }
     }
     
     func addToShoppingList() {
+        if(addShopName == "")
+        {
+            // FEL tomt namn
+            return
+        }
+        if(addShopAmount == "")
+        {
+            // FEL inget antal
+            return
+        }
+        if(Int(addShopAmount) == nil)
+        {
+            // FEL inte siffra
+            return
+        }
+        
         var userid = Auth.auth().currentUser!.uid
         
         var shopsave = [String : Any]()
@@ -66,15 +85,16 @@ struct ShoppinglistView: View {
         ref.child("shopping").child(userid).childByAutoId().setValue(shopsave)
         
         loadshopping()
+        
+        addShopName = ""
+        addShopAmount = ""
     }
     
     func loadshopping() {
         
-        shoplistIds = []
-        shoplistNames = []
-        shoplistAmount = []
-
-        var userid = Auth.auth().currentUser!.uid
+        allShopping = []
+        
+        let userid = Auth.auth().currentUser!.uid
         
         ref.child("shopping").child(userid).getData(completion:  { error, snapshot in
             
@@ -85,11 +105,18 @@ struct ShoppinglistView: View {
                 let shopdict = shopsnap.value as! [String : Any]
                 let shopid = shopsnap.key
                 
-                shoplistIds.append(shopid)
-                
-                shoplistNames.append(shopdict["shopname"] as! String)
-                shoplistAmount.append(shopdict["shopamount"] as! Int)
+                let tempshop = Shopitem()
+                tempshop.shopid = shopid
+                tempshop.shopname = shopdict["shopname"] as! String
+                tempshop.shopamount = shopdict["shopamount"] as! Int
 
+                if let checkbought = shopdict["shopbought"] as? Bool {
+                    tempshop.shopbought = checkbought
+                }
+                
+                
+                
+                allShopping.append(tempshop)
             }
             
         })

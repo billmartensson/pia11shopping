@@ -6,31 +6,91 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ShopdetailView: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
+    var ref: DatabaseReference! = Database.database().reference()
+    
+    @State var currentshop : Shopitem
+    
+    @State var shopname = ""
+    @State var shopamount = ""
+    @State var havebought = false
+    
     var body: some View {
         VStack {
-            TextField("Vad handla", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Vad handla", text: $shopname)
             
-            TextField("Antal", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Antal", text: $shopamount)
 
-            Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) {
+            Toggle(isOn: $havebought) {
                 Text("Köpt")
+            }.onChange(of: havebought) { value in
+                saveshop()
             }
 
-            Button(action: {}, label: {
+            Button(action: {
+                saveshop()
+            }, label: {
                 Text("Spara")
             })
 
-            Button(action: {}, label: {
+            Button(action: {
+                deleteshop()
+            }, label: {
                 Text("Radera")
             })
         }
+        .navigationTitle(shopname)
+        .onAppear() {
+            shopname = currentshop.shopname
+            shopamount = String(currentshop.shopamount)
+            havebought = currentshop.shopbought
+            
+        }
+    }
+    
+    func saveshop() {
+        if(shopname == "")
+        {
+            // FEL tomt namn
+            return
+        }
+        if(shopamount == "")
+        {
+            // FEL inget antal
+            return
+        }
+        if(Int(shopamount) == nil)
+        {
+            // FEL inte siffra
+            return
+        }
+        
+        
+        var userid = Auth.auth().currentUser!.uid
+        
+        var shopsave = [String : Any]()
+        shopsave["shopname"] = shopname
+        shopsave["shopamount"] = Int(shopamount)
+        shopsave["shopbought"] = havebought
+        
+        ref.child("shopping").child(userid).child(currentshop.shopid).setValue(shopsave)
+        
+    }
+    
+    func deleteshop() {
+        currentshop.deleteme()
+        
+        dismiss()
     }
 }
 
 struct ShopdetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ShopdetailView()
+        ShopdetailView(currentshop: Shopitem())
     }
 }

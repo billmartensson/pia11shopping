@@ -20,6 +20,8 @@
 		ABE3B3C5290679A900A25EC2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3B3C4290679A900A25EC2 /* LoginView.swift */; };
 		ABE3B3C729067D6E00A25EC2 /* ShoppinglistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3B3C629067D6E00A25EC2 /* ShoppinglistView.swift */; };
 		ABE3B3C92906844F00A25EC2 /* ShopdetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3B3C82906844F00A25EC2 /* ShopdetailView.swift */; };
+		ABEC7FD5290A69420001FD21 /* Shopitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7FD4290A69420001FD21 /* Shopitem.swift */; };
+		ABEC7FD7290A97D20001FD21 /* ShopRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7FD6290A97D20001FD21 /* ShopRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		ABE3B3C4290679A900A25EC2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ABE3B3C629067D6E00A25EC2 /* ShoppinglistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppinglistView.swift; sourceTree = "<group>"; };
 		ABE3B3C82906844F00A25EC2 /* ShopdetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopdetailView.swift; sourceTree = "<group>"; };
+		ABEC7FD4290A69420001FD21 /* Shopitem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopitem.swift; sourceTree = "<group>"; };
+		ABEC7FD6290A97D20001FD21 /* ShopRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +77,10 @@
 				ABE3B3A92906717B00A25EC2 /* PIA11ShoppingApp.swift */,
 				ABE3B3AB2906717B00A25EC2 /* ContentView.swift */,
 				ABE3B3C629067D6E00A25EC2 /* ShoppinglistView.swift */,
+				ABEC7FD6290A97D20001FD21 /* ShopRowView.swift */,
 				ABE3B3C82906844F00A25EC2 /* ShopdetailView.swift */,
 				ABE3B3C4290679A900A25EC2 /* LoginView.swift */,
+				ABEC7FD4290A69420001FD21 /* Shopitem.swift */,
 				ABE3B3AD2906717D00A25EC2 /* Assets.xcassets */,
 				ABE3B3AF2906717D00A25EC2 /* Preview Content */,
 			);
@@ -174,6 +180,8 @@
 				ABE3B3C729067D6E00A25EC2 /* ShoppinglistView.swift in Sources */,
 				ABE3B3C92906844F00A25EC2 /* ShopdetailView.swift in Sources */,
 				ABE3B3AC2906717B00A25EC2 /* ContentView.swift in Sources */,
+				ABEC7FD7290A97D20001FD21 /* ShopRowView.swift in Sources */,
+				ABEC7FD5290A69420001FD21 /* Shopitem.swift in Sources */,
 				ABE3B3AA2906717B00A25EC2 /* PIA11ShoppingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

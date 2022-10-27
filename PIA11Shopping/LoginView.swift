@@ -17,22 +17,31 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
+            Text("Logga in!!")
+                .font(.largeTitle)
+            Spacer()
+            
             TextField("E-post", text: $loginemail)
-            TextField("Lösenord", text: $loginpassword)
+                .keyboardType(.emailAddress)
+            SecureField("Lösenord", text: $loginpassword)
 
             HStack {
                 Button(action: {
                     registeruser()
                 }, label: {
                     Text("Registrera")
+                        .padding()
                 })
                 Button(action: {
                     loginuser()
                 }, label: {
                     Text("Logga in")
+                        .padding()
                 })
             }
-        }.alert("Det blev fel", isPresented: $showerror) {
+        }
+        .padding()
+        .alert("Det blev fel", isPresented: $showerror) {
             Button("OK") { }
         }
     }
