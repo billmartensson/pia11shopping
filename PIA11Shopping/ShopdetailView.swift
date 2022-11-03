@@ -16,6 +16,8 @@ struct ShopdetailView: View {
     
     @State var currentshop : Shopitem
     
+    @ObservedObject var shopfix : ShoppingCode
+    
     @State var shopname = ""
     @State var shopamount = ""
     @State var havebought = false
@@ -29,7 +31,7 @@ struct ShopdetailView: View {
             Toggle(isOn: $havebought) {
                 Text("Köpt")
             }.onChange(of: havebought) { value in
-                saveshop()
+                shopfix.saveshop(shopthing: <#T##Shopitem#>, shopname: <#T##String#>, shopamount: <#T##String#>, havebought: <#T##Bool#>)
             }
 
             Button(action: {
@@ -53,44 +55,11 @@ struct ShopdetailView: View {
         }
     }
     
-    func saveshop() {
-        if(shopname == "")
-        {
-            // FEL tomt namn
-            return
-        }
-        if(shopamount == "")
-        {
-            // FEL inget antal
-            return
-        }
-        if(Int(shopamount) == nil)
-        {
-            // FEL inte siffra
-            return
-        }
-        
-        
-        var userid = Auth.auth().currentUser!.uid
-        
-        var shopsave = [String : Any]()
-        shopsave["shopname"] = shopname
-        shopsave["shopamount"] = Int(shopamount)
-        shopsave["shopbought"] = havebought
-        
-        ref.child("shopping").child(userid).child(currentshop.shopid).setValue(shopsave)
-        
-    }
     
-    func deleteshop() {
-        currentshop.deleteme()
-        
-        dismiss()
-    }
 }
 
 struct ShopdetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ShopdetailView(currentshop: Shopitem())
+        ShopdetailView(currentshop: Shopitem(), shopfix: ShoppingCode())
     }
 }
