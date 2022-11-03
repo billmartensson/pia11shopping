@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ABADB3932913B08B00BA1FA7 /* LoginCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABADB3922913B08B00BA1FA7 /* LoginCode.swift */; };
 		ABE3B3AA2906717B00A25EC2 /* PIA11ShoppingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3B3A92906717B00A25EC2 /* PIA11ShoppingApp.swift */; };
 		ABE3B3AC2906717B00A25EC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3B3AB2906717B00A25EC2 /* ContentView.swift */; };
 		ABE3B3AE2906717D00A25EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABE3B3AD2906717D00A25EC2 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ABADB3922913B08B00BA1FA7 /* LoginCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCode.swift; sourceTree = "<group>"; };
 		ABE3B3A62906717B00A25EC2 /* PIA11Shopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PIA11Shopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABE3B3A92906717B00A25EC2 /* PIA11ShoppingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIA11ShoppingApp.swift; sourceTree = "<group>"; };
 		ABE3B3AB2906717B00A25EC2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +56,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ABADB3942913B0A800BA1FA7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				ABE3B3C4290679A900A25EC2 /* LoginView.swift */,
+				ABADB3922913B08B00BA1FA7 /* LoginCode.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		ABE3B39D2906717B00A25EC2 = {
 			isa = PBXGroup;
 			children = (
@@ -73,13 +84,13 @@
 		ABE3B3A82906717B00A25EC2 /* PIA11Shopping */ = {
 			isa = PBXGroup;
 			children = (
+				ABADB3942913B0A800BA1FA7 /* Login */,
 				ABE3B3B72906738F00A25EC2 /* GoogleService-Info.plist */,
 				ABE3B3A92906717B00A25EC2 /* PIA11ShoppingApp.swift */,
 				ABE3B3AB2906717B00A25EC2 /* ContentView.swift */,
 				ABE3B3C629067D6E00A25EC2 /* ShoppinglistView.swift */,
 				ABEC7FD6290A97D20001FD21 /* ShopRowView.swift */,
 				ABE3B3C82906844F00A25EC2 /* ShopdetailView.swift */,
-				ABE3B3C4290679A900A25EC2 /* LoginView.swift */,
 				ABEC7FD4290A69420001FD21 /* Shopitem.swift */,
 				ABE3B3AD2906717D00A25EC2 /* Assets.xcassets */,
 				ABE3B3AF2906717D00A25EC2 /* Preview Content */,
@@ -182,6 +193,7 @@
 				ABE3B3AC2906717B00A25EC2 /* ContentView.swift in Sources */,
 				ABEC7FD7290A97D20001FD21 /* ShopRowView.swift in Sources */,
 				ABEC7FD5290A69420001FD21 /* Shopitem.swift in Sources */,
+				ABADB3932913B08B00BA1FA7 /* LoginCode.swift in Sources */,
 				ABE3B3AA2906717B00A25EC2 /* PIA11ShoppingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

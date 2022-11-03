@@ -13,7 +13,7 @@ struct LoginView: View {
     @State var loginemail = ""
     @State var loginpassword = ""
     
-    @State var showerror = false
+    @StateObject var loginFixer = LoginCode()
     
     var body: some View {
         VStack {
@@ -27,13 +27,15 @@ struct LoginView: View {
 
             HStack {
                 Button(action: {
-                    registeruser()
+                    
+                    loginFixer.registeruser(useremail: loginemail, userpassword: loginpassword)
+                    
                 }, label: {
                     Text("Registrera")
                         .padding()
                 })
                 Button(action: {
-                    loginuser()
+                    loginFixer.loginuser(useremail: loginemail, userpassword: loginpassword)
                 }, label: {
                     Text("Logga in")
                         .padding()
@@ -41,35 +43,12 @@ struct LoginView: View {
             }
         }
         .padding()
-        .alert("Det blev fel", isPresented: $showerror) {
+        .alert("Det blev fel", isPresented: $loginFixer.showerror) {
             Button("OK") { }
         }
     }
     
-    func loginuser() {
-        Auth.auth().signIn(withEmail: loginemail, password: loginpassword) { authResult, error in
-          
-            if(error != nil)
-            {
-                // Misslyckad inloggning
-                showerror = true
-            }
-
-        }
-    }
     
-    func registeruser() {
-        Auth.auth().createUser(withEmail: loginemail, password: loginpassword) { authResult, error in
-            
-            print(error)
-            
-            if(error != nil)
-            {
-                // Misslyckad registering
-                showerror = true
-            }
-        }
-    }
     
 }
 
