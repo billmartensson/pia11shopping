@@ -18,24 +18,30 @@ struct ShoppinglistView: View {
     var body: some View {
         
         NavigationView {
-            VStack {
-                HStack {
-                    TextField("Vad handla", text: $addShopName)
-                    TextField("Antal", text: $addShopAmount)
-                    
-                    Button(action: {
-                        shopFixer.addToShoppingList(shopname: addShopName, shopamount: addShopAmount)
-                    }, label: {
-                        Text("Lägg till")
-                    })
-                }
-                
-                List(shopFixer.allShopping, id: \.shopid) { shopthing in
-                    
-                    NavigationLink(destination: ShopdetailView(currentshop: shopthing, shopfix: shopFixer)) {
-                            ShopRowView(rowshop: shopthing)
+            ZStack {
+                VStack {
+                    HStack {
+                        TextField("Vad handla", text: $addShopName)
+                        TextField("Antal", text: $addShopAmount)
+                        
+                        Button(action: {
+                            shopFixer.addToShoppingList(shopname: addShopName, shopamount: addShopAmount)
+                        }, label: {
+                            Text("Lägg till")
+                        })
                     }
                     
+                    List(shopFixer.allShopping, id: \.shopid) { shopthing in
+                        
+                        NavigationLink(destination: ShopdetailView(currentshop: shopthing, shopfix: shopFixer)) {
+                                ShopRowView(rowshop: shopthing)
+                        }
+                        
+                    }
+                }
+                if(shopFixer.isLoading)
+                {
+                    LoadingView()
                 }
                 
             }

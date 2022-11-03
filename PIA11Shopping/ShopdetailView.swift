@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct ShopdetailView: View {
     
     @Environment(\.dismiss) var dismiss
-    
-    var ref: DatabaseReference! = Database.database().reference()
-    
+        
     @State var currentshop : Shopitem
     
     @ObservedObject var shopfix : ShoppingCode
@@ -31,17 +28,18 @@ struct ShopdetailView: View {
             Toggle(isOn: $havebought) {
                 Text("Köpt")
             }.onChange(of: havebought) { value in
-                shopfix.saveshop(shopthing: <#T##Shopitem#>, shopname: <#T##String#>, shopamount: <#T##String#>, havebought: <#T##Bool#>)
+                shopfix.shopDone(shopthing: currentshop, isdone: havebought)
             }
 
             Button(action: {
-                saveshop()
+                shopfix.saveshop(shopthing: currentshop, shopname: shopname, shopamount: shopamount, havebought: havebought)
             }, label: {
                 Text("Spara")
             })
 
             Button(action: {
-                deleteshop()
+                shopfix.deleteshop(shopthing: currentshop)
+                dismiss()
             }, label: {
                 Text("Radera")
             })

@@ -15,30 +15,47 @@ struct LoginView: View {
     @StateObject var loginFixer = LoginCode()
     
     var body: some View {
-        VStack {
-            Text("Logga in!!")
-                .font(.largeTitle)
-            Spacer()
-            
-            TextField("E-post", text: $loginemail)
-                .keyboardType(.emailAddress)
-            SecureField("Lösenord", text: $loginpassword)
+        
+        ZStack {
+            VStack {
+                Text("Logga in!!")
+                    .font(.largeTitle)
+                Spacer()
+                
+                if(loginFixer.errorRegister)
+                {
+                    Text("Felaktig registrering")
+                        .font(.title)
+                        .foregroundColor(Color.white)
+                        .padding()
+                        .background(.red)
+                }
+                
+                TextField("E-post", text: $loginemail)
+                    .keyboardType(.emailAddress)
+                SecureField("Lösenord", text: $loginpassword)
 
-            HStack {
-                Button(action: {
-                    
-                    loginFixer.registeruser(useremail: loginemail, userpassword: loginpassword)
-                    
-                }, label: {
-                    Text("Registrera")
-                        .padding()
-                })
-                Button(action: {
-                    loginFixer.loginuser(useremail: loginemail, userpassword: loginpassword)
-                }, label: {
-                    Text("Logga in")
-                        .padding()
-                })
+                HStack {
+                    Button(action: {
+                        
+                        loginFixer.registeruser(useremail: loginemail, userpassword: loginpassword)
+                        
+                    }, label: {
+                        Text("Registrera")
+                            .padding()
+                    })
+                    Button(action: {
+                        loginFixer.loginuser(useremail: loginemail, userpassword: loginpassword)
+                    }, label: {
+                        Text("Logga in")
+                            .padding()
+                    })
+                }
+            }
+            
+            if(loginFixer.isLoading)
+            {
+                LoadingView()
             }
         }
         .padding()

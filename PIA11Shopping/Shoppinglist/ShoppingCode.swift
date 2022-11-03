@@ -14,6 +14,7 @@ class ShoppingCode : ObservableObject {
     
     @Published var allShopping = [Shopitem]()
     
+    @Published var isLoading = false
     
     func addToShoppingList(shopname : String, shopamount : String) {
         if(shopname == "")
@@ -38,9 +39,22 @@ class ShoppingCode : ObservableObject {
         shopsave["shopname"] = shopname
         shopsave["shopamount"] = Int(shopamount)
         
-        ref.child("shopping").child(userid).childByAutoId().setValue(shopsave)
+        ref.child("shopping").child(userid).childByAutoId().setValue(shopsave) {
+            error, ref in
+            
+            if(error == nil)
+            {
+                // OK SPARA
+                self.loadshopping()
+            } else {
+                // FEL VID SPARA
+                
+            }
+            
+            
+        }
         
-        loadshopping()
+        
         
         //addShopName = ""
         //addShopAmount = ""
@@ -52,6 +66,7 @@ class ShoppingCode : ObservableObject {
         
         let userid = Auth.auth().currentUser!.uid
         
+        isLoading = true
         ref.child("shopping").child(userid).getData(completion:  { error, snapshot in
             
             for shopdata in snapshot!.children {
@@ -75,7 +90,15 @@ class ShoppingCode : ObservableObject {
                 self.allShopping.append(tempshop)
             }
             
+            self.isLoading = false
         })
+        
+        
+    }
+    
+    func shopDone(shopthing : Shopitem, isdone : Bool) {
+        var userid = Auth.auth().currentUser!.uid
+        ref.child("shopping").child(userid).child(shopthing.shopid).child("shopbought").setValue(isdone)
     }
     
     func saveshop(shopthing : Shopitem, shopname : String, shopamount : String, havebought : Bool) {
